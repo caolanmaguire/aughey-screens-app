@@ -1,0 +1,63 @@
+/* src/material.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.material-toolbar {
+  height: 56px;
+  background: #6200ea;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1000;
+}
+
+.material-title {
+  font-size: 20px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.material-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: white;
+  display: flex;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.material-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(0,0,0,0.6);
+  font-size: 12px;
+  padding: 6px;
+}
+
+.material-tab.active {
+  color: #6200ea;
+}
+
+.material-tab-icon {
+  font-size: 18px;
+  margin-bottom: 2px;
+}

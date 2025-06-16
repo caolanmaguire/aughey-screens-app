@@ -1,0 +1,383 @@
+body,html{
+    padding-top: 50px!important;
+}
+
+/* ons-toolbar-button>ons-icon[icon*="ion-"] { */
+/* .toolbar {
+    color: White !important;
+    background-image: url(../includes/background.png)!important;
+    background-repeat: no-repeat!important;
+    background-attachment: fixed!important;
+    background-position: center!important;
+    background: black !important;
+} */
+
+textarea, input.text, input[type="text"], input[type="button"], input[type="submit"], .input-checkbox, select {
+    border: 1px solid gray!important;
+    background-color: whitesmoke!important;
+    color: #1f1f21!important;
+    color: var(--input-invalid-text-color)!important;
+    /* padding: 10px!important; */
+}
+
+.toolbar {
+    background-color: #3d3d3d;
+    color: white, impo !important;
+}
+
+#tiles-container {
+    background: whitesmoke;
+    width: 100%;
+    height: 400px;
+    padding: 5px;
+}
+
+#tile {
+    font-variant-caps: all-petite-caps;
+    width: 40%;
+    height: 150px;
+    border: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 15px;
+    background: #3d3d3d;
+    color: white;
+    float: left;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    padding:14px;
+}
+
+.back-button__icon {
+    fill: white;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+/* 
+textarea,
+input.text,
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+.input-checkbox,
+select {
+    -webkit-appearance: none;
+    border-radius: 0;
+} */
+
+.toolbar {
+    /* background-color: #3d3d3d; */
+    color: white, impo !important;
+    color: White !important;
+    /* background-image: url(../includes/background.png)!important; */
+    background-repeat: no-repeat!important;
+    background-attachment: fixed!important;
+    background-position: center!important;
+}
+
+.tabbar {
+    background-color: #3d3d3d;
+}
+
+.tabbar__icon,
+.toolbar__title,
+.ion-ios-menu,
+.tabbar__label {
+    color: white;
+}
+
+form {
+    padding: 5px;
+}
+
+/* 
+.back-button__icon, .back-button__label, ons-icon, .back-button--material__icon, span{
+    color:white!important;
+}
+
+.back-button--material__icon, .back-button--material{
+    color:white!important;
+} */
+
+.back-button--material__icon {
+    fill: white !important;
+}
+
+#wrapper {
+    margin: 20px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+.mySlides1,
+.mySlides2 {
+    display: none
+}
+
+/* img {
+    vertical-align: middle;
+    max-width: 100%;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+} */
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a grey background color */
+.prev:hover,
+.next:hover {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#slider {
+    width: 100%;
+    /* height: 400px; */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.slides {
+    width: 300%;
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slides img {
+    width: 34%;
+}
+
+.control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
+
+.unicode {
+    color: white;
+    font-size: 42px;
+    margin: 0;
+}
+
+.tabbar__label {
+    display: block !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    margin: 8px !important;
+    font-weight: 600 !important;
+    font-weight: var(--font-weight) !important;
+}
+
+ons-toolbar-button > ons-icon[icon*="ion-"]{
+    color: white!important;
+}
+
+ons-input, ons-radio, ons-checkbox, ons-search-input {
+    width: 90%;
+}
+
+.button--material{
+    background-color: #3d3d3d!important;
+}
+
+img {
+    max-width: 100%!important;
+}
+
+.unicode-icon {
+    max-width: 60px!important;
+}
+
+
+.list-item--material {
+    padding:0!important;
+    margin-bottom: 5px!important;
+    background:whitesmoke!important;
+}
+
+
+
+
+
+
+
+
+/* Onsen UI Tabbar Styles */
+.tabbar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #6200ea;
+  z-index: 1000;
+}
+
+.tabbar--material {
+  background: #6200ea;
+  color: white;
+}
+
+.tabbar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tabbar--material__item {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tabbar--material__item.active {
+  color: #03dac6;
+}
+
+.tabbar__button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 6px 12px;
+  transition: all 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.tabbar--material__button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.tabbar__icon {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.tabbar__label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.tabbar--material__item.active .tabbar__label {
+  opacity: 1;
+  font-weight: 500;
+}
+
+.tabbar--material__item.active .tabbar__icon {
+  transform: scale(1.1);
+}
+
+/* Ripple Effects */
+.ripple--material {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ripple__wave {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.ripple--material__wave {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.ripple__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Border indicator */
+.tabbar__border {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #03dac6;
+  transition: all 0.3s cubic-bezier(0.4, 0.7, 0.5, 1);
+}
+
+.tabbar--material__border {
+  background: #03dac6;
+}
