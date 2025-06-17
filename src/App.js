@@ -6,29 +6,25 @@ import './style/material.css';
 import './style/style.css';
 
 import FullWidthSlider from './components/FullWidthSlider';
-
-
-
+import TileButton from './components/AugheyTile';
 import AppHeader from './components/AppHeader';
 import TabBar from './components/TabBar';
 import SalesEnquiryComponent from './components/SalesEnquiryComponent';
 
-
 // Images
 import homeArchImage from './img/home-arch.jpg';
 import homeWovenImage from './img/home-woven.jpg';
+import ImgSnowWide from './img/img_snow_wide.jpg';
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
 
-    // Your slides data
+  // Your slides data
   const yourSlides = [
     {
       id: 1,
       type: 'image',
       src: homeArchImage,
-      // title: 'Aughey Screens',
-      // description: 'Professional screen installation services',
       overlay: true,
       overlayPosition: 'center-left'
     },
@@ -36,15 +32,14 @@ function App() {
       id: 2,
       type: 'image',
       src: homeWovenImage,
-      // title: 'Quality Work',
-      // description: 'Expert installation and repair',
       overlay: true,
       overlayPosition: 'center-right'
     },
     {
       id: 3,
-      type: 'content',
-      backgroundColor: '#6200ea',
+      type: 'image',
+      src: ImgSnowWide,
+      // backgroundColor: '#6200ea',
       content: (
         <div style={{
           display: 'flex',
@@ -80,59 +75,43 @@ function App() {
   ];
 
   return (
-    <div style={{ paddingBottom: '56px' }}>
+    <div style={{ 
+      minHeight: '100vh',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch'
+    }}>
+      <AppHeader />
+      <TabBar />
+      
+      <FullWidthSlider
+        slides={yourSlides}
+        height="300px"
+        autoPlay={true}
+        autoPlayInterval={5000}
+        showControls={true}
+        showDots={true}
+        showCounter={true}
+        pauseOnHover={true}
+      />
 
-          <AppHeader></AppHeader>
-          <TabBar></TabBar>
+      <SalesEnquiryComponent />
 
-          <FullWidthSlider
-  slides={yourSlides}
-  height="300px"
-  autoPlay={true}
-  autoPlayInterval={5000}
-  showControls={true}
-  showDots={true}
-  showCounter={true}
-  pauseOnHover={true}
-/>
-
-<SalesEnquiryComponent></SalesEnquiryComponent>
-
-      {/* Material Toolbar */}
-      {/* <div className="material-toolbar">
-        <div className="material-title">Aughey Screens</div>
-      </div> */}
-
-      {/* Content */}
       <div style={{ padding: '16px' }}>
-        <h2>Your App Content</h2>
-        <p>Material Design styling without external libraries!</p>
-      </div>
+        <h2>Catalogue</h2>
+        
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+          gap: '16px',
+          marginBottom: '16px'
+        }}>
+          <TileButton></TileButton>
+          <TileButton></TileButton>
+          <TileButton></TileButton>
+          <TileButton></TileButton>
+        </div>
 
-      {/* Bottom Navigation
-      <div className="material-bottom-nav">
-        <button 
-          className={`material-tab ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => setActiveTab('home')}
-        >
-          <div className="material-tab-icon">🏠</div>
-          <div>Home</div>
-        </button>
-        <button 
-          className={`material-tab ${activeTab === 'quote' ? 'active' : ''}`}
-          onClick={() => setActiveTab('quote')}
-        >
-          <div className="material-tab-icon">✏️</div>
-          <div>Make Quote</div>
-        </button>
-        <button 
-          className={`material-tab ${activeTab === 'quotes' ? 'active' : ''}`}
-          onClick={() => setActiveTab('quotes')}
-        >
-          <div className="material-tab-icon">📋</div>
-          <div>My Quotes</div>
-        </button>
-      </div> */}
+      </div>
     </div>
   );
 }
