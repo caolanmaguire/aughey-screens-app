@@ -1,14 +1,82 @@
-// components/AppHeader.jsx
+// src/components/AppHeader.js
 import React from 'react';
-import '../style/style.css';
 
-const AppHeader = ({ title = "My App", onMenuClick, onSearchClick, onProfileClick }) => {
+const AppHeader = ({ onMenuClick }) => {
   return (
-    <ons-toolbar modifier="material noshadow" className="toolbar toolbar--material toolbar--noshadow"><div className="left toolbar__left toolbar--material__left toolbar--noshadow__left"></div><div className="center toolbar__center toolbar__title toolbar--material__center toolbar--noshadow__center">Home</div><div className="right toolbar__right toolbar--material__right toolbar--noshadow__right">
-      <ons-toolbar-button onclick="fn.toggleMenu()" modifier="material" ripple="" className="toolbar-button toolbar-button--material"><ons-ripple modifier="material" className="ripple--material ripple" center="" size="contain" background="transparent"><div className="ripple__wave ripple--material__wave"></div><div className="ripple__background ripple--material__background"></div></ons-ripple>
-        <ons-icon icon="ion-ios-menu, material:md-menu" className="ons-icon zmdi zmdi-menu" modifier="material"></ons-icon>
-        </ons-toolbar-button>
-    </div></ons-toolbar>
+    <div style={{
+      backgroundColor: '#6200ea',
+      color: 'white',
+      padding: '16px 20px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+      position: 'relative',
+      zIndex: 50
+    }}>
+      {/* Left side - Logo/Brand */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px'
+      }}>
+        <div style={{
+          width: '32px',
+          height: '32px',
+          backgroundColor: 'white',
+          borderRadius: '6px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#6200ea',
+          fontWeight: 'bold',
+          fontSize: '18px'
+        }}>
+          A
+        </div>
+        <h1 style={{
+          margin: 0,
+          fontSize: '20px',
+          fontWeight: '500'
+        }}>
+          Aughey
+        </h1>
+      </div>
+
+      {/* Right side - Menu button */}
+      <button
+        onClick={onMenuClick}
+        style={{
+          backgroundColor: 'transparent',
+          border: 'none',
+          color: 'white',
+          cursor: 'pointer',
+          padding: '8px',
+          borderRadius: '6px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '20px',
+          transition: 'background-color 0.2s ease'
+        }}
+        onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
+        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+      >
+        {/* Hamburger menu icon */}
+        <svg 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   );
 };
 

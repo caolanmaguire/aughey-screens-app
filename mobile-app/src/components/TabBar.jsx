@@ -1,70 +1,51 @@
-// src/components/TabBar.jsx
-import React, { useState } from 'react';
+// src/components/TabBar.js
+import React from 'react';
 
-const TabBar = ({ onTabChange, activeTab = 'home' }) => {
-    const handleTabClick = (tabName) => {
-        if (onTabChange) {
-            onTabChange(tabName);
-        }
-    };
+const TabBar = ({ activeTab, onTabClick }) => {
+  const tabs = [
+    { id: 'home', label: 'Home', icon: '🏠' },
+    { id: 'products', label: 'Products', icon: '📦' },
+    { id: 'services', label: 'Services', icon: '🔧' },
+    { id: 'contact', label: 'Contact', icon: '📞' },
+    { id: 'about', label: 'About', icon: 'ℹ️' }
+  ];
 
-    const tabs = [
-        { id: 'home', label: 'Home', icon: '🏠' },
-        { id: 'quote', label: 'Make Quote', icon: '✏️' },
-        { id: 'quotes', label: 'My Quotes', icon: '📋' }
-    ];
-
-    return (
-        <div style={{
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '56px',
-            background: '#3d3d3d',
+  return (
+    <div style={{
+      display: 'flex',
+      backgroundColor: 'white',
+      borderTop: '1px solid #e0e0e0',
+      boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+      height: '60px'
+    }}>
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => onTabClick(tab.id)}
+          style={{
+            flex: 1,
             display: 'flex',
-            zIndex: 1000,
-            boxShadow: '0 -2px 8px rgba(0,0,0,0.15)'
-        }}>
-            {tabs.map(tab => (
-                <button
-                    key={tab.id}
-                    onClick={() => handleTabClick(tab.id)}
-                    style={{
-                        flex: 1,
-                        background: 'transparent',
-                        border: 'none',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        color: activeTab === tab.id ? '#03dac6' : 'rgba(255,255,255,0.7)',
-                        transition: 'color 0.15s ease',
-                        padding: '6px 12px',
-                        fontSize: '12px',
-                        fontFamily: 'Roboto, sans-serif',
-                        fontWeight: activeTab === tab.id ? '500' : '400'
-                    }}
-                >
-                    <div style={{
-                        fontSize: '18px',
-                        marginBottom: '2px',
-                        transform: activeTab === tab.id ? 'scale(1.1)' : 'scale(1)',
-                        transition: 'transform 0.15s ease'
-                    }}>
-                        {tab.icon}
-                    </div>
-                    <div style={{
-                        fontSize: activeTab === tab.id ? '12px' : '11px',
-                        opacity: activeTab === tab.id ? 1 : 0.8
-                    }}>
-                        {tab.label}
-                    </div>
-                </button>
-            ))}
-        </div>
-    );
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: 'none',
+            backgroundColor: 'transparent',
+            cursor: 'pointer',
+            padding: '8px 4px',
+            color: activeTab === tab.id ? '#6200ea' : '#666',
+            transition: 'color 0.2s ease'
+          }}
+        >
+          <span style={{ fontSize: '16px', marginBottom: '2px' }}>
+            {tab.icon}
+          </span>
+          <span style={{ fontSize: '10px', fontWeight: '500' }}>
+            {tab.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
 };
 
 export default TabBar;
