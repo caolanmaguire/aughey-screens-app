@@ -223,3 +223,109 @@ config.local.json
 # Debug files
 *.log
 debug.log
+
+
+
+# Cordova App .gitignore
+
+# Cordova/PhoneGap
+platforms/
+plugins/
+www/
+.cordova/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+build/
+dist/
+*.apk
+*.ipa
+*.aab
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Config files (uncomment if you don't want to track these)
+# config.xml
+# config/
+
+# Hooks (uncomment if you don't want to track custom hooks)
+# hooks/
+
+# Resources that are copied to platforms
+# res/
+
+# Merges folder
+# merges/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android
+*.keystore
+*.jks
+
+# iOS
+*.mobileprovision
+*.p12
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
