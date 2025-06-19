@@ -22,7 +22,7 @@ jobs:
     - name: Setup Java JDK
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '17'  # Changed from 11 to 17
         distribution: 'temurin'
 
     - name: Setup Android SDK
@@ -37,7 +37,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    # Rest of your steps remain the same...
     - name: Build React app
       run: npm run build
 
