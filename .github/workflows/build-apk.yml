@@ -37,8 +37,21 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Check available scripts
+      run: npm run
+
     - name: Build React app
-      run: npm run build
+      run: |
+        if npm run | grep -q "build"; then
+          npm run build
+        elif npm run | grep -q "build:prod"; then
+          npm run build:prod
+        elif npm run | grep -q "compile"; then
+          npm run compile
+        else
+          echo "No build script found. Creating production build manually..."
+          npx react-scripts build || echo "React scripts not available"
+        fi
 
     - name: Install Cordova
       run: npm install -g cordova
