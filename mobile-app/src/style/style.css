@@ -1,5 +1,5 @@
 body,html{
-    padding-top: 50px!important;
+    overflow: auto;
 }
 
 /* ons-toolbar-button>ons-icon[icon*="ion-"] { */
@@ -72,12 +72,12 @@ select {
 
 .toolbar {
     /* background-color: #3d3d3d; */
-    color: white, impo !important;
+    /* color: white, impo !important; */
     color: White !important;
     /* background-image: url(../includes/background.png)!important; */
-    background-repeat: no-repeat!important;
+    /* background-repeat: no-repeat!important;
     background-attachment: fixed!important;
-    background-position: center!important;
+    background-position: center!important; */
 }
 
 .tabbar {
@@ -265,7 +265,7 @@ img {
   left: 0;
   right: 0;
   height: 56px;
-  background: #6200ea;
+  /* background: #6200ea; */
   z-index: 1000;
 }
 
