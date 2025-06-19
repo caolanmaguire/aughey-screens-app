@@ -1,4 +1,4 @@
-name: Build and Sign APK (Optimized)
+name: Build and Sign APK
 
 on:
   push:
@@ -18,7 +18,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
 
     - name: Setup Java JDK
       uses: actions/setup-java@v4
@@ -29,36 +28,24 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Cache Gradle packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-
-    - name: Cache Cordova platforms
-      uses: actions/cache@v3
-      with:
-        path: platforms
-        key: ${{ runner.os }}-cordova-platforms-${{ hashFiles('config.xml') }}
+    - name: Generate package-lock.json if not exists
+      run: |
+        if [ ! -f package-lock.json ]; then
+          npm install --package-lock-only
+        fi
 
     - name: Install dependencies
       run: npm ci
 
+    # Rest of your steps remain the same...
     - name: Build React app
       run: npm run build
 
     - name: Install Cordova
       run: npm install -g cordova
 
-    - name: Add Android platform (if not cached)
-      run: |
-        if [ ! -d "platforms/android" ]; then
-          cordova platform add android
-        fi
+    - name: Add Android platform
+      run: cordova platform add android
 
     - name: Copy React build to Cordova
       run: |
@@ -71,7 +58,6 @@ jobs:
 
     - name: Create release-signing.properties
       run: |
-        mkdir -p platforms/android
         echo "storeFile=../../../my-release-key.keystore" > platforms/android/release-signing.properties
         echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> platforms/android/release-signing.properties
         echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> platforms/android/release-signing.properties
@@ -83,7 +69,7 @@ jobs:
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
-        name: signed-apk-${{ github.sha }}
+        name: signed-apk
         path: platforms/android/app/build/outputs/apk/release/app-release.apk
         retention-days: 30
 
