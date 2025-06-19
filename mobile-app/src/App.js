@@ -16,161 +16,15 @@ import homeArchImage from './img/home-arch.jpg';
 import homeWovenImage from './img/home-woven.jpg';
 import ImgSnowWide from './img/img_snow_wide.jpg';
 
-// Slide-in Menu Component from the right
-const SlideInMenu = ({ isVisible, onClose }) => {
-  return (
-    <>
-      {/* Overlay */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 998,
-          opacity: isVisible ? 1 : 0,
-          visibility: isVisible ? 'visible' : 'hidden',
-          transition: 'opacity 0.3s ease-in-out, visibility 0.3s ease-in-out'
-        }}
-        onClick={onClose}
-      />
-      
-      {/* Slide-in menu */}
-      <div 
-        style={{
-          position: 'fixed',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: '280px',
-          maxWidth: '80vw',
-          backgroundColor: 'white',
-          boxShadow: '-4px 0 12px rgba(0, 0, 0, 0.15)',
-          zIndex: 999,
-          transform: isVisible ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        {/* Menu Header */}
-        <div style={{
-          backgroundColor: '#6200ea',
-          color: 'white',
-          padding: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}>
-          <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '500' }}>
-            Menu
-          </h3>
-          <button 
-            onClick={onClose}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              fontSize: '24px',
-              cursor: 'pointer',
-              padding: '4px',
-              borderRadius: '50%',
-              width: '32px',
-              height: '32px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            ×
-          </button>
-        </div>
-        
-        {/* Menu Items */}
-        <div style={{ flex: 1, overflow: 'auto' }}>
-          <div style={{ padding: '8px 0' }}>
-            
-            {/* Profile Section */}
-            <div style={{
-              padding: '16px 20px',
-              borderBottom: '1px solid #f0f0f0',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px'
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                backgroundColor: '#6200ea',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontSize: '20px',
-                fontWeight: 'bold'
-              }}>
-                U
-              </div>
-              <div>
-                <div style={{ fontWeight: '500', fontSize: '16px' }}>User Name</div>
-                <div style={{ color: '#666', fontSize: '14px' }}>user@example.com</div>
-              </div>
-            </div>
-
-            {/* Menu Items */}
-            <MenuItem icon="🏠" label="Home" onClick={onClose} />
-            <MenuItem icon="👤" label="My Account" onClick={onClose} />
-            <MenuItem icon="📋" label="Order History" onClick={onClose} />
-            <MenuItem icon="❤️" label="Favorites" onClick={onClose} />
-            <MenuItem icon="🔔" label="Notifications" onClick={onClose} />
-            <MenuItem icon="⚙️" label="Settings" onClick={onClose} />
-            
-            <div style={{ height: '1px', backgroundColor: '#f0f0f0', margin: '8px 0' }} />
-            
-            <MenuItem icon="📞" label="Support" onClick={onClose} />
-            <MenuItem icon="📝" label="Feedback" onClick={onClose} />
-            <MenuItem icon="ℹ️" label="About" onClick={onClose} />
-            
-            <div style={{ height: '1px', backgroundColor: '#f0f0f0', margin: '8px 0' }} />
-            
-            <MenuItem icon="🚪" label="Sign Out" onClick={onClose} color="#d32f2f" />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-// Menu Item Component
-const MenuItem = ({ icon, label, onClick, color = '#333' }) => {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-        padding: '16px 20px',
-        border: 'none',
-        backgroundColor: 'transparent',
-        cursor: 'pointer',
-        fontSize: '16px',
-        color: color,
-        textAlign: 'left',
-        transition: 'background-color 0.2s ease'
-      }}
-      onMouseEnter={(e) => e.target.style.backgroundColor = '#f5f5f5'}
-      onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-    >
-      <span style={{ fontSize: '20px', minWidth: '24px' }}>{icon}</span>
-      <span>{label}</span>
-    </button>
-  );
-};
+// Tile data list - add or remove items as needed
+const tileData = [
+  ['Premium Ceramic Tiles', 'High-quality ceramic tiles perfect for modern kitchens and bathrooms. Available in multiple colors and finishes with excellent durability and water resistance.'],
+  ['Natural Stone Collection', 'Beautiful natural stone tiles sourced from the finest quarries. Durable and elegant for any space, bringing the beauty of nature indoors.'],
+  ['Mosaic Designs', 'Stunning mosaic tiles that add artistic flair to your walls and floors. Perfect for accent walls, backsplashes, and creating unique design features.'],
+  ['Porcelain Pro Series', 'Professional-grade porcelain tiles designed for high-traffic areas. Slip-resistant and easy to maintain, ideal for commercial and residential use.'],
+  ['Wood Effect Tiles', 'Get the look of hardwood with the durability of ceramic. Perfect for any room in your home, combining warmth with practicality.'],
+  ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.']
+];
 
 // Full Page Slide-up Component with its own toolbar
 const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
@@ -265,7 +119,7 @@ const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [currentPage, setCurrentPage] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedTile, setSelectedTile] = useState(null);
 
   // Handle tab clicks to show full pages
   const handleTabClick = (tabName) => {
@@ -280,13 +134,17 @@ function App() {
     setActiveTab('home');
   };
 
-  // Handle menu toggle
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  // Handle tile click to show popup
+  const handleTileClick = (index) => {
+    setSelectedTile({
+      title: tileData[index][0],
+      content: tileData[index][1]
+    });
   };
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
+  // Close tile popup
+  const closePopup = () => {
+    setSelectedTile(null);
   };
 
   // Your slides data
@@ -350,7 +208,7 @@ function App() {
       flexDirection: 'column',
       position: 'relative'
     }}>
-      <AppHeader onMenuClick={toggleMenu} />
+      <AppHeader />
       
       {/* Main scrollable content */}
       <div style={{
@@ -372,19 +230,22 @@ function App() {
 
         <SalesEnquiryComponent />
 
+        {/* Catalogue Section */}
         <div style={{ padding: '16px' }}>
           <h2>Catalogue</h2>
           
+          {/* Generate TileButton for each item in the list */}
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
             gap: '16px',
             marginBottom: '16px'
           }}>
-            <TileButton />
-            <TileButton />
-            <TileButton />
-            <TileButton />
+            {tileData.map((item, index) => (
+              <div key={index} onClick={() => handleTileClick(index)}>
+                <TileButton />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -402,6 +263,72 @@ function App() {
           onTabClick={handleTabClick}
         />
       </div>
+
+      {/* Simple Popup for tile content */}
+      {selectedTile && (
+        <>
+          {/* Overlay */}
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 1001,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px'
+            }}
+            onClick={closePopup}
+          >
+            {/* Popup Content */}
+            <div 
+              style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                padding: '24px',
+                maxWidth: '400px',
+                width: '100%',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '16px'
+              }}>
+                <h3 style={{ margin: 0, color: '#333' }}>
+                  {selectedTile.title}
+                </h3>
+                <button 
+                  onClick={closePopup}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    color: '#666'
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              <p style={{ 
+                margin: 0, 
+                lineHeight: '1.6', 
+                color: '#666' 
+              }}>
+                {selectedTile.content}
+              </p>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Full Page Slide-ups */}
       <FullPageSlideUp 
@@ -598,12 +525,6 @@ function App() {
           </div>
         </div>
       </FullPageSlideUp>
-
-      {/* Slide-in Menu from Right */}
-      <SlideInMenu 
-        isVisible={isMenuOpen} 
-        onClose={closeMenu}
-      />
     </div>
   );
 }
