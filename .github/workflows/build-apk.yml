@@ -1,0 +1,99 @@
+name: Build and Sign APK (Optimized)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Cache Cordova platforms
+      uses: actions/cache@v3
+      with:
+        path: platforms
+        key: ${{ runner.os }}-cordova-platforms-${{ hashFiles('config.xml') }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build React app
+      run: npm run build
+
+    - name: Install Cordova
+      run: npm install -g cordova
+
+    - name: Add Android platform (if not cached)
+      run: |
+        if [ ! -d "platforms/android" ]; then
+          cordova platform add android
+        fi
+
+    - name: Copy React build to Cordova
+      run: |
+        rm -rf www/*
+        cp -r build/* www/
+
+    - name: Decode keystore
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > my-release-key.keystore
+
+    - name: Create release-signing.properties
+      run: |
+        mkdir -p platforms/android
+        echo "storeFile=../../../my-release-key.keystore" > platforms/android/release-signing.properties
+        echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> platforms/android/release-signing.properties
+        echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> platforms/android/release-signing.properties
+        echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> platforms/android/release-signing.properties
+
+    - name: Build signed APK
+      run: cordova build android --release
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: signed-apk-${{ github.sha }}
+        path: platforms/android/app/build/outputs/apk/release/app-release.apk
+        retention-days: 30
+
+    - name: Create Release (on main branch)
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: Release v${{ github.run_number }}
+        files: platforms/android/app/build/outputs/apk/release/app-release.apk
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
