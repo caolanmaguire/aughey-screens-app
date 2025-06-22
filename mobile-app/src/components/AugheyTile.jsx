@@ -3,9 +3,13 @@ import { Button, Icon } from 'react-onsenui';
 
 const TileButton = ({ navigator }) => {
   const handleTileClick = () => {
-    // Using Onsen UI React navigation
+    if (!navigator) {
+      console.error('Navigator prop is not available');
+      return;
+    }
+
     navigator.pushPage({
-      component: 'db-page-3', // Your target component
+      component: 'db-page-3',
       props: {
         title: 'PullHook'
       }
@@ -34,17 +38,17 @@ const TileButton = ({ navigator }) => {
   };
 
   return (
-    <button 
-      id="tile" 
+    <button
+      id="tile"
       style={tileStyle}
       onClick={handleTileClick}
     >
-      <Icon 
-        icon="md-information" 
+      <Icon
+        icon="md-information"
         style={iconStyle}
       />
-      <img 
-        className="unicode-icon" 
+      <img
+        className="unicode-icon"
         style={imageStyle}
         src="https://augheyscreens.app/includes/icons/ICON-PHOTO.png"
         alt="Icon"

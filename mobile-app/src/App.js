@@ -8,8 +8,8 @@ import './style/style.css';
 import FullWidthSlider from './components/FullWidthSlider';
 import TileButton from './components/AugheyTile';
 import AppHeader from './components/AppHeader';
-import TabBar from './components/TabBar';
 import SalesEnquiryComponent from './components/SalesEnquiryComponent';
+import SalesEnquiryForm from './components/SalesEnquiryForm';
 
 // Images
 import homeArchImage from './img/home-arch.jpg';
@@ -26,6 +26,50 @@ const tileData = [
   ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.']
 ];
 
+// Custom TabBar Component (completely independent of OnsenUI)
+const CustomTabBar = ({ activeTab, onTabClick }) => {
+  const tabs = [
+    { id: 'home', icon: '🏠', label: 'Home' },
+    { id: 'products', icon: '📦', label: 'Products' },
+    { id: 'services', icon: '⚙️', label: 'Services' },
+    { id: 'contact', icon: '📞', label: 'Contact' },
+    { id: 'about', icon: 'ℹ️', label: 'About' }
+  ];
+
+  return (
+    <div style={{
+      display: 'flex',
+      backgroundColor: '#fff',
+      borderTop: '1px solid #e0e0e0',
+      boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
+    }}>
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => onTabClick(tab.id)}
+          style={{
+            flex: 1,
+            padding: '12px 8px',
+            border: 'none',
+            background: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '4px',
+            color: activeTab === tab.id ? '#6200ea' : '#666',
+            fontSize: '12px',
+            transition: 'color 0.2s ease'
+          }}
+        >
+          <span style={{ fontSize: '20px' }}>{tab.icon}</span>
+          <span>{tab.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+};
+
 // Full Page Slide-up Component with its own toolbar
 const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
   return (
@@ -37,7 +81,7 @@ const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
         right: 0,
         bottom: 0,
         backgroundColor: 'white',
-        zIndex: 1000,
+        zIndex: 100,
         transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
         transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         display: 'flex',
@@ -46,13 +90,14 @@ const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
     >
       {/* Page Toolbar */}
       <div style={{
-        backgroundColor: '#6200ea',
+        backgroundColor: 'rgb(61, 61, 61)',
         color: 'white',
         padding: '16px',
         display: 'flex',
         alignItems: 'center',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        minHeight: '64px'
+        minHeight: '64px',
+        zIndex: 101
       }}>
         <button 
           onClick={onClose}
@@ -125,6 +170,8 @@ function App() {
   const handleTabClick = (tabName) => {
     if (tabName !== 'home') {
       setCurrentPage(tabName);
+    } else {
+      setCurrentPage(null);
     }
     setActiveTab(tabName);
   };
@@ -233,6 +280,20 @@ function App() {
         {/* Catalogue Section */}
         <div style={{ padding: '16px' }}>
           <h2>Catalogue</h2>
+
+          <input type='text' placeholder='save your name' id='name' style={{
+            width: '100%',
+            padding: '12px',
+            marginBottom: '16px',
+            border: '1px solid #ddd',
+            borderRadius: '4px',
+            fontSize: '16px'
+          }} />
+          <input type='submit' value='Submit' onClick={() => localStorage.setItem('name',document.getElementById('name').value)} /> <br/> <br/>
+
+          <input type='submit' value='Get Value' onClick={() => alert(localStorage.getItem('name'))} />
+
+
           
           {/* Generate TileButton for each item in the list */}
           <div style={{ 
@@ -250,7 +311,7 @@ function App() {
         </div>
       </div>
 
-      {/* Fixed TabBar at bottom */}
+      {/* Fixed Custom TabBar at bottom */}
       <div style={{
         position: 'fixed',
         bottom: 0,
@@ -258,7 +319,7 @@ function App() {
         right: 0,
         zIndex: 100
       }}>
-        <TabBar 
+        <CustomTabBar 
           activeTab={activeTab} 
           onTabClick={handleTabClick}
         />
@@ -379,42 +440,7 @@ function App() {
         onClose={closePage}
         title="Services"
       >
-        <div style={{ padding: '20px' }}>
-          <h2>Our Services</h2>
-          <p>This is the full services page with its own toolbar.</p>
-          <p>List your services, pricing, and booking options here.</p>
-          
-          {/* Example content */}
-          <div style={{ marginTop: '24px' }}>
-            <h3>Available Services</h3>
-            <div style={{ display: 'grid', gap: '16px', marginTop: '16px' }}>
-              <div style={{ 
-                padding: '16px', 
-                border: '1px solid #e0e0e0', 
-                borderRadius: '8px'
-              }}>
-                <h4 style={{ margin: '0 0 8px 0' }}>Installation Service</h4>
-                <p style={{ margin: 0, color: '#666' }}>Professional installation by certified technicians</p>
-              </div>
-              <div style={{ 
-                padding: '16px', 
-                border: '1px solid #e0e0e0', 
-                borderRadius: '8px'
-              }}>
-                <h4 style={{ margin: '0 0 8px 0' }}>Maintenance Service</h4>
-                <p style={{ margin: 0, color: '#666' }}>Regular maintenance and support services</p>
-              </div>
-              <div style={{ 
-                padding: '16px', 
-                border: '1px solid #e0e0e0', 
-                borderRadius: '8px'
-              }}>
-                <h4 style={{ margin: '0 0 8px 0' }}>Consultation Service</h4>
-                <p style={{ margin: 0, color: '#666' }}>Expert advice and project planning</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SalesEnquiryForm />
       </FullPageSlideUp>
 
       <FullPageSlideUp 
@@ -475,7 +501,7 @@ function App() {
                 }}
               />
               <button style={{
-                backgroundColor: '#6200ea',
+                backgroundColor: 'rgb(61, 61, 61)',
                 color: 'white',
                 border: 'none',
                 padding: '12px 24px',

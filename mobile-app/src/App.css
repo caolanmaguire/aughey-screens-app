@@ -1,3 +1,7 @@
+ons-toolbar:not([inline]), ons-bottom-toolbar{
+  z-index: 100!important;
+}
+
 .App {
   text-align: center;
 }
