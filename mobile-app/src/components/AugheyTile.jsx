@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-onsenui';
 
-const TileButton = ({ navigator }) => {
+const TileButton = ({ navigator, title = 'woven wire cloth and filtration' }) => {
   const handleTileClick = () => {
     if (!navigator) {
       console.error('Navigator prop is not available');
@@ -54,7 +54,7 @@ const TileButton = ({ navigator }) => {
         alt="Icon"
       />
       <br />
-      <span>woven wire cloth and filtration</span>
+      <span>{title}</span>
     </button>
   );
 };
