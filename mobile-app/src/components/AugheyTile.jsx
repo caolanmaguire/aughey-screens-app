@@ -1,21 +1,7 @@
 import React from 'react';
 import { Button, Icon } from 'react-onsenui';
 
-const TileButton = ({ navigator, title = 'woven wire cloth and filtration' }) => {
-  const handleTileClick = () => {
-    if (!navigator) {
-      console.error('Navigator prop is not available');
-      return;
-    }
-
-    navigator.pushPage({
-      component: 'db-page-3',
-      props: {
-        title: 'PullHook'
-      }
-    });
-  };
-
+const TileButton = ({ title = 'woven wire cloth and filtration', onClick }) => {
   const tileStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -41,7 +27,7 @@ const TileButton = ({ navigator, title = 'woven wire cloth and filtration' }) =>
     <button
       id="tile"
       style={tileStyle}
-      onClick={handleTileClick}
+      onClick={onClick} // Use the onClick prop from parent
     >
       <Icon
         icon="md-information"

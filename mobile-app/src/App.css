@@ -18,7 +18,7 @@ ons-toolbar:not([inline]), ons-bottom-toolbar{
 }
 
 .App-header {
-  background-color: #282c34;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,6 +26,26 @@ ons-toolbar:not([inline]), ons-bottom-toolbar{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional: Add a subtle animated overlay */
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%);
+  animation: shimmer 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .App-link {
@@ -39,4 +59,9 @@ ons-toolbar:not([inline]), ons-bottom-toolbar{
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.toolbar{
+  position: unset!important;
 }

@@ -455,6 +455,9 @@ function App() {
         WebkitOverflowScrolling: 'touch',
         paddingBottom: '80px' // Add space for TabBar
       }}>
+
+        <br/><br/>
+
         <FullWidthSlider
           slides={yourSlides}
           height="300px"
@@ -472,7 +475,7 @@ function App() {
         <div style={{ padding: '16px' }}>
           <h2>Catalogue</h2>
 
-          <input type='text' placeholder='save your name' id='name' style={{
+          {/* <input type='text' placeholder='save your name' id='name' style={{
             width: '100%',
             padding: '12px',
             marginBottom: '16px',
@@ -482,7 +485,7 @@ function App() {
           }} />
           <input type='submit' value='Submit' onClick={() => localStorage.setItem('name', document.getElementById('name').value)} /> <br /> <br />
 
-          <input type='submit' value='Get Value' onClick={() => alert(localStorage.getItem('name'))} />
+          <input type='submit' value='Get Value' onClick={() => alert(localStorage.getItem('name'))} /> */}
 
           {/* Temporary burger menu button for testing (remove when AppHeader is updated) */}
           <button
@@ -908,38 +911,227 @@ function App() {
         </div>
       </FullPageSlideUp>
 
-      <FullPageSlideUp
+
+<FullPageSlideUp
         isVisible={currentPage === 'about'}
         onClose={closePage}
-        title="About Us"
+        title="My Quotes"
       >
-        <div style={{ padding: '20px' }}>
-          <h2>About Our Company</h2>
-          <p>This is the full about page with its own toolbar.</p>
-
-          {/* Example about content */}
-          <div style={{ marginTop: '24px' }}>
-            <h3>Our Story</h3>
-            <p style={{ lineHeight: '1.6', marginBottom: '24px' }}>
-              Founded in 2020, our company has been dedicated to providing high-quality
-              products and services to our customers. We believe in innovation, quality,
-              and customer satisfaction.
+        <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', color: '#333' }}>Welcome Back</h2>
+            <p style={{ margin: 0, color: '#666', fontSize: '16px' }}>
+              Sign in to access your quotes
             </p>
+          </div>
 
-            <h3>Our Mission</h3>
-            <p style={{ lineHeight: '1.6', marginBottom: '24px' }}>
-              To deliver exceptional products and services that exceed our customers'
-              expectations while maintaining the highest standards of quality and integrity.
+          {/* Login Form */}
+          <div style={{ marginBottom: '32px' }}>
+            {/* Email Input */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#333'
+              }}>
+                Email Address
+              </label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  transition: 'border-color 0.2s ease',
+                  outline: 'none'
+                }}
+                onFocus={(e) => e.target.style.borderColor = 'rgb(61, 61, 61)'}
+                onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+              />
+            </div>
+
+            {/* PIN Code Input */}
+            <div style={{ marginBottom: '32px' }}>
+              <label style={{
+                display: 'block',
+                marginBottom: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#333'
+              }}>
+                PIN Code
+              </label>
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                justifyContent: 'center',
+                marginBottom: '8px'
+              }}>
+                {[0, 1, 2, 3].map((index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    maxLength="1"
+                    style={{
+                      width: '60px',
+                      height: '60px',
+                      textAlign: 'center',
+                      fontSize: '24px',
+                      fontWeight: 'bold',
+                      border: '2px solid #e0e0e0',
+                      borderRadius: '8px',
+                      outline: 'none',
+                      transition: 'border-color 0.2s ease'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'rgb(61, 61, 61)';
+                      e.target.select();
+                    }}
+                    onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                    onInput={(e) => {
+                      // Only allow numbers
+                      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                      
+                      // Auto-focus next input
+                      if (e.target.value && index < 3) {
+                        const nextInput = e.target.parentNode.children[index + 1];
+                        if (nextInput) nextInput.focus();
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      // Handle backspace to go to previous input
+                      if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        const prevInput = e.target.parentNode.children[index - 1];
+                        if (prevInput) {
+                          prevInput.focus();
+                          prevInput.select();
+                        }
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+              <p style={{
+                margin: 0,
+                fontSize: '12px',
+                color: '#666',
+                textAlign: 'center'
+              }}>
+                Enter your 4-digit PIN
+              </p>
+            </div>
+
+            {/* Login Button */}
+            <button style={{
+              width: '100%',
+              backgroundColor: 'rgb(61, 61, 61)',
+              color: 'white',
+              border: 'none',
+              padding: '16px',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease',
+              marginBottom: '16px'
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgb(45, 45, 45)'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'rgb(61, 61, 61)'}
+            onClick={() => {
+              // Add your login logic here
+              console.log('Login attempted');
+            }}
+            >
+              Sign In
+            </button>
+
+            {/* Forgot PIN Link */}
+            <div style={{ textAlign: 'center' }}>
+              <button style={{
+                background: 'none',
+                border: 'none',
+                color: 'rgb(61, 61, 61)',
+                fontSize: '14px',
+                cursor: 'pointer',
+                textDecoration: 'underline'
+              }}
+              onClick={() => {
+                // Add forgot PIN logic here
+                console.log('Forgot PIN clicked');
+              }}
+              >
+                Forgot your PIN?
+              </button>
+            </div>
+          </div>
+
+          {/* Alternative Login Options */}
+          <div style={{
+            borderTop: '1px solid #e0e0e0',
+            paddingTop: '24px',
+            textAlign: 'center'
+          }}>
+            <p style={{
+              margin: '0 0 16px 0',
+              fontSize: '14px',
+              color: '#666'
+            }}>
+              Need help accessing your account?
             </p>
+            <button style={{
+              backgroundColor: '#f8f9fa',
+              color: 'rgb(61, 61, 61)',
+              border: '2px solid #e0e0e0',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease'
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#e9ecef'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+            onClick={() => {
+              // Add contact support logic here
+              console.log('Contact support clicked');
+            }}
+            >
+              📞 Contact Support
+            </button>
+          </div>
 
-            <h3>Our Values</h3>
-            <ul style={{ lineHeight: '1.6' }}>
-              <li>Quality first</li>
-              <li>Customer satisfaction</li>
-              <li>Innovation and creativity</li>
-              <li>Integrity and transparency</li>
-              <li>Teamwork and collaboration</li>
-            </ul>
+          {/* Security Note */}
+          <div style={{
+            marginTop: '32px',
+            padding: '16px',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '8px',
+            border: '1px solid #e9ecef'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '8px'
+            }}>
+              <span style={{ fontSize: '16px' }}>🔒</span>
+              <span style={{ fontSize: '14px', fontWeight: '500', color: '#333' }}>
+                Secure Login
+              </span>
+            </div>
+            <p style={{
+              margin: 0,
+              fontSize: '12px',
+              color: '#666',
+              lineHeight: '1.4'
+            }}>
+              Your data is protected with industry-standard encryption. 
+              Never share your PIN with anyone.
+            </p>
           </div>
         </div>
       </FullPageSlideUp>
