@@ -10,22 +10,47 @@ import TileButton from './components/AugheyTile';
 import AppHeader from './components/AppHeader';
 import SalesEnquiryComponent from './components/SalesEnquiryComponent';
 import SalesEnquiryForm from './components/SalesEnquiryForm';
+import LargeMenu from './components/LargeMenu';
 
 // Images
 import homeArchImage from './img/home-arch.jpg';
 import homeWovenImage from './img/home-woven.jpg';
 import ImgSnowWide from './img/img_snow_wide.jpg';
 
+  // Custom hook to detect screen size
+  function useScreenSize() {
+    const [screenSize, setScreenSize] = useState({
+      isMobile: typeof window !== 'undefined' ? window.innerWidth < 768 : false,
+      isTablet: typeof window !== 'undefined' ? window.innerWidth >= 768 : false
+    });
+
+    React.useEffect(() => {
+      const handleResize = () => {
+        const width = window.innerWidth;
+        setScreenSize({
+          isMobile: width < 768,
+          isTablet: width >= 768
+        });
+      };
+
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return screenSize;
+  }
+
 // Tile data list - add or remove items as needed
 const tileData = [
 
-  ['Woven Wire Cloth and Filtration','Wire mesh is increasingly being adopted more and more by the architectural community and building industry. Aughey Screens basis for the innovative strength and quality of these products comes from our decades of experience in manufacturing technical woven wire for separation and filtration.  Woven wire is ideal for architectural projects because of its optical and functional properties. May of which include their reflectiveness, transparency and opaqueness, flexibility and robustness, permeability to light and air, practically unlimited service life, ease of cleaning, recyclability and functional protection against the sun, drafts and impacts.  Wire mesh facades offer an ideal solution for both internal and external requirements. The various combinations of wire diameters, aperture sizes and mesh patterns result in each application having its own unique appearance. When these products are combined with suitable lighting the results are very impressive. There are a number of different fitting options available depending on the mesh type and the application.'],
+  ['Woven Wire Cloth and Filtration', 'Wire mesh is increasingly being adopted more and more by the architectural community and building industry. Aughey Screens basis for the innovative strength and quality of these products comes from our decades of experience in manufacturing technical woven wire for separation and filtration.  Woven wire is ideal for architectural projects because of its optical and functional properties. May of which include their reflectiveness, transparency and opaqueness, flexibility and robustness, permeability to light and air, practically unlimited service life, ease of cleaning, recyclability and functional protection against the sun, drafts and impacts.  Wire mesh facades offer an ideal solution for both internal and external requirements. The various combinations of wire diameters, aperture sizes and mesh patterns result in each application having its own unique appearance. When these products are combined with suitable lighting the results are very impressive. There are a number of different fitting options available depending on the mesh type and the application.'],
   ['Natural Stone Collection', 'Beautiful natural stone tiles sourced from the finest quarries. Durable and elegant for any space, bringing the beauty of nature indoors.'],
   ['Mosaic Designs', 'Stunning mosaic tiles that add artistic flair to your walls and floors. Perfect for accent walls, backsplashes, and creating unique design features.'],
   ['Porcelain Pro Series', 'Professional-grade porcelain tiles designed for high-traffic areas. Slip-resistant and easy to maintain, ideal for commercial and residential use.'],
   ['Wood Effect Tiles', 'Get the look of hardwood with the durability of ceramic. Perfect for any room in your home, combining warmth with practicality.'],
-  ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.'],
-  ['Caolán Maguire', 'Caolan Maguire is cool']
+  ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.']
 
 
 
@@ -351,10 +376,18 @@ const FullPageSlideUp = ({ isVisible, onClose, title, children }) => {
 };
 
 function App() {
+  // const [activeTab, setActiveTab] = useState('home');
+  // const [currentPage, setCurrentPage] = useState(null);
+  // const [selectedTileIndex, setSelectedTileIndex] = useState(null);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false); // Add state for menu
+
   const [activeTab, setActiveTab] = useState('home');
   const [currentPage, setCurrentPage] = useState(null);
   const [selectedTileIndex, setSelectedTileIndex] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Add state for menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Add this line:
+  const { isMobile, isTablet } = useScreenSize();
 
   // Handle tab clicks to show full pages
   const handleTabClick = (tabName) => {
@@ -457,7 +490,7 @@ function App() {
         paddingBottom: '80px' // Add space for TabBar
       }}>
 
-        <br/><br/>
+        <br /><br />
 
         <FullWidthSlider
           slides={yourSlides}
@@ -472,656 +505,625 @@ function App() {
 
         <SalesEnquiryComponent />
 
-        {/* Catalogue Section */}
-        <div style={{ padding: '16px' }}>
-          <h2>Catalogue</h2>
+{/* Catalogue Section */}
+<div style={{ padding: '16px' }}>
+  <h2>Catalogue</h2>
 
-          {/* <input type='text' placeholder='save your name' id='name' style={{
-            width: '100%',
-            padding: '12px',
-            marginBottom: '16px',
-            border: '1px solid #ddd',
-            borderRadius: '4px',
-            fontSize: '16px'
-          }} />
-          <input type='submit' value='Submit' onClick={() => localStorage.setItem('name', document.getElementById('name').value)} /> <br /> <br />
-
-          <input type='submit' value='Get Value' onClick={() => alert(localStorage.getItem('name'))} /> */}
-
-
-          {/* Generate TileButton for each item in the list */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '16px',
-            marginBottom: '16px'
-          }}>
-            {tileData.map((item, index) => (
-              <div key={index} onClick={() => handleTileClick(index)}>
-                <TileButton
-                  navigator={navigator}
-                  title={tileData[index][0]}
-                />
-              </div>
-            ))}
-          </div>
+  {/* Mobile View - Show TileButton grid */}
+  {isMobile && (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '16px',
+      marginBottom: '16px'
+    }}>
+      {tileData.map((item, index) => (
+        <div key={index} onClick={() => handleTileClick(index)}>
+          <TileButton
+            navigator={navigator}
+            title={tileData[index][0]}
+          />
         </div>
-      </div>
+      ))}
+    </div>
+  )}
 
-      {/* Fixed Custom TabBar at bottom */}
-      <div style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100
-      }}>
-        <CustomTabBar
-          activeTab={activeTab}
-          onTabClick={handleTabClick}
+  {/* Tablet/Desktop View - Show LargeMenu */}
+  {isTablet && (
+    <LargeMenu 
+      tileData={tileData}
+      onMenuClick={handleTileClick}
+    />
+  )}
+</div>
+</div>
+
+        {/* Fixed Custom TabBar at bottom */}
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100
+        }}>
+          <CustomTabBar
+            activeTab={activeTab}
+            onTabClick={handleTabClick}
+          />
+        </div>
+
+        {/* Right Slide Menu */}
+        <RightSlideMenu
+          isOpen={isMenuOpen}
+          onClose={closeMenu}
         />
-      </div>
 
-      {/* Right Slide Menu */}
-      <RightSlideMenu
-        isOpen={isMenuOpen}
-        onClose={closeMenu}
-      />
+        {/* Tile Detail Slide-up Pages */}
+        {tileData.map((tile, index) => (
+          <FullPageSlideUp
+            key={`tile-${index}`}
+            isVisible={selectedTileIndex === index}
+            onClose={closeTilePage}
+            title={tile[0]}
+          >
+            <div style={{ padding: '20px' }}>
+              <div style={{
+                marginBottom: '24px',
+                padding: '20px',
+                backgroundColor: '#f8f9fa',
+                borderRadius: '8px',
+                border: '1px solid #e9ecef'
+              }}>
+                <h2 style={{
+                  margin: '0 0 16px 0',
+                  color: '#333',
+                  fontSize: '24px'
+                }}>
+                  {tile[0]}
+                </h2>
+                <p style={{
+                  margin: 0,
+                  lineHeight: '1.6',
+                  color: '#666',
+                  fontSize: '16px'
+                }}>
+                  {tile[1]}
+                </p>
+              </div>
 
-      {/* Tile Detail Slide-up Pages */}
-      {tileData.map((tile, index) => (
+              {/* Product Features Section */}
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{
+                  margin: '0 0 16px 0',
+                  color: '#333',
+                  fontSize: '20px'
+                }}>
+                  Key Features
+                </h3>
+                <div style={{ display: 'grid', gap: '12px' }}>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}>
+                    <span style={{ fontSize: '20px' }}>✓</span>
+                    <span>Premium Quality Materials</span>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}>
+                    <span style={{ fontSize: '20px' }}>✓</span>
+                    <span>Water & Stain Resistant</span>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}>
+                    <span style={{ fontSize: '20px' }}>✓</span>
+                    <span>Easy to Clean & Maintain</span>
+                  </div>
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: '#fff',
+                    border: '1px solid #e9ecef',
+                    borderRadius: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}>
+                    <span style={{ fontSize: '20px' }}>✓</span>
+                    <span>Professional Installation Available</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Specifications Section */}
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{
+                  margin: '0 0 16px 0',
+                  color: '#333',
+                  fontSize: '20px'
+                }}>
+                  Specifications
+                </h3>
+                <div style={{
+                  backgroundColor: '#fff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '6px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    borderBottom: '1px solid #e9ecef'
+                  }}>
+                    <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
+                      Size Options
+                    </div>
+                    <div style={{ padding: '12px 16px' }}>
+                      Various sizes available
+                    </div>
+                  </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    borderBottom: '1px solid #e9ecef'
+                  }}>
+                    <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
+                      Thickness
+                    </div>
+                    <div style={{ padding: '12px 16px' }}>
+                      8-12mm
+                    </div>
+                  </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    borderBottom: '1px solid #e9ecef'
+                  }}>
+                    <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
+                      Finish
+                    </div>
+                    <div style={{ padding: '12px 16px' }}>
+                      Matt, Gloss, Textured
+                    </div>
+                  </div>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr'
+                  }}>
+                    <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
+                      Suitable Areas
+                    </div>
+                    <div style={{ padding: '12px 16px' }}>
+                      Indoor & Outdoor
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{
+                display: 'flex',
+                gap: '12px',
+                flexWrap: 'wrap'
+              }}>
+                <button style={{
+                  flex: 1,
+                  minWidth: '140px',
+                  backgroundColor: 'rgb(61, 61, 61)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '16px 24px',
+                  borderRadius: '6px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px'
+                }}>
+                  📋 Request Quote
+                </button>
+                <button style={{
+                  flex: 1,
+                  minWidth: '140px',
+                  backgroundColor: '#fff',
+                  color: 'rgb(61, 61, 61)',
+                  border: '2px solid rgb(61, 61, 61)',
+                  padding: '16px 24px',
+                  borderRadius: '6px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px'
+                }}>
+                  📞 Call Us
+                </button>
+              </div>
+
+              {/* Related Products Section */}
+              <div style={{ marginTop: '40px' }}>
+                <h3 style={{
+                  margin: '0 0 16px 0',
+                  color: '#333',
+                  fontSize: '20px'
+                }}>
+                  You might also like
+                </h3>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                  gap: '12px'
+                }}>
+                  {tileData.filter((_, i) => i !== index).slice(0, 3).map((relatedTile, relatedIndex) => (
+                    <button
+                      key={relatedIndex}
+                      onClick={() => setSelectedTileIndex(tileData.findIndex(t => t === relatedTile))}
+                      style={{
+                        padding: '16px 12px',
+                        backgroundColor: '#f8f9fa',
+                        border: '1px solid #e9ecef',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        textAlign: 'center',
+                        fontSize: '14px',
+                        transition: 'background-color 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#e9ecef'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                    >
+                      {relatedTile[0]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </FullPageSlideUp>
+        ))}
+
+        {/* Full Page Slide-ups */}
         <FullPageSlideUp
-          key={`tile-${index}`}
-          isVisible={selectedTileIndex === index}
-          onClose={closeTilePage}
-          title={tile[0]}
+          isVisible={currentPage === 'products'}
+          onClose={closePage}
+          title="Products"
         >
           <div style={{ padding: '20px' }}>
-            <div style={{
-              marginBottom: '24px',
-              padding: '20px',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '8px',
-              border: '1px solid #e9ecef'
-            }}>
-              <h2 style={{
-                margin: '0 0 16px 0',
-                color: '#333',
-                fontSize: '24px'
-              }}>
-                {tile[0]}
-              </h2>
-              <p style={{
-                margin: 0,
-                lineHeight: '1.6',
-                color: '#666',
-                fontSize: '16px'
-              }}>
-                {tile[1]}
-              </p>
-            </div>
+            <h2>Our Products</h2>
+            <p>This is the full products page with its own toolbar.</p>
+            <p>Add your product listings, categories, and details here.</p>
 
-            {/* Product Features Section */}
-            <div style={{ marginBottom: '32px' }}>
-              <h3 style={{
-                margin: '0 0 16px 0',
-                color: '#333',
-                fontSize: '20px'
-              }}>
-                Key Features
-              </h3>
-              <div style={{ display: 'grid', gap: '12px' }}>
+            {/* Example content */}
+            <div style={{ marginTop: '24px' }}>
+              <h3>Product Categories</h3>
+              <div style={{ display: 'grid', gap: '16px', marginTop: '16px' }}>
                 <div style={{
                   padding: '16px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '8px',
+                  backgroundColor: '#f5f5f5'
                 }}>
-                  <span style={{ fontSize: '20px' }}>✓</span>
-                  <span>Premium Quality Materials</span>
+                  Category 1
                 </div>
                 <div style={{
                   padding: '16px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '8px',
+                  backgroundColor: '#f5f5f5'
                 }}>
-                  <span style={{ fontSize: '20px' }}>✓</span>
-                  <span>Water & Stain Resistant</span>
+                  Category 2
                 </div>
                 <div style={{
                   padding: '16px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '8px',
+                  backgroundColor: '#f5f5f5'
                 }}>
-                  <span style={{ fontSize: '20px' }}>✓</span>
-                  <span>Easy to Clean & Maintain</span>
+                  Category 3
                 </div>
-                <div style={{
-                  padding: '16px',
-                  backgroundColor: '#fff',
-                  border: '1px solid #e9ecef',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px'
-                }}>
-                  <span style={{ fontSize: '20px' }}>✓</span>
-                  <span>Professional Installation Available</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Specifications Section */}
-            <div style={{ marginBottom: '32px' }}>
-              <h3 style={{
-                margin: '0 0 16px 0',
-                color: '#333',
-                fontSize: '20px'
-              }}>
-                Specifications
-              </h3>
-              <div style={{
-                backgroundColor: '#fff',
-                border: '1px solid #e9ecef',
-                borderRadius: '6px',
-                overflow: 'hidden'
-              }}>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  borderBottom: '1px solid #e9ecef'
-                }}>
-                  <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
-                    Size Options
-                  </div>
-                  <div style={{ padding: '12px 16px' }}>
-                    Various sizes available
-                  </div>
-                </div>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  borderBottom: '1px solid #e9ecef'
-                }}>
-                  <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
-                    Thickness
-                  </div>
-                  <div style={{ padding: '12px 16px' }}>
-                    8-12mm
-                  </div>
-                </div>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  borderBottom: '1px solid #e9ecef'
-                }}>
-                  <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
-                    Finish
-                  </div>
-                  <div style={{ padding: '12px 16px' }}>
-                    Matt, Gloss, Textured
-                  </div>
-                </div>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr'
-                }}>
-                  <div style={{ padding: '12px 16px', fontWeight: '500', backgroundColor: '#f8f9fa' }}>
-                    Suitable Areas
-                  </div>
-                  <div style={{ padding: '12px 16px' }}>
-                    Indoor & Outdoor
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div style={{
-              display: 'flex',
-              gap: '12px',
-              flexWrap: 'wrap'
-            }}>
-              <button style={{
-                flex: 1,
-                minWidth: '140px',
-                backgroundColor: 'rgb(61, 61, 61)',
-                color: 'white',
-                border: 'none',
-                padding: '16px 24px',
-                borderRadius: '6px',
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px'
-              }}>
-                📋 Request Quote
-              </button>
-              <button style={{
-                flex: 1,
-                minWidth: '140px',
-                backgroundColor: '#fff',
-                color: 'rgb(61, 61, 61)',
-                border: '2px solid rgb(61, 61, 61)',
-                padding: '16px 24px',
-                borderRadius: '6px',
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px'
-              }}>
-                📞 Call Us
-              </button>
-            </div>
-
-            {/* Related Products Section */}
-            <div style={{ marginTop: '40px' }}>
-              <h3 style={{
-                margin: '0 0 16px 0',
-                color: '#333',
-                fontSize: '20px'
-              }}>
-                You might also like
-              </h3>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: '12px'
-              }}>
-                {tileData.filter((_, i) => i !== index).slice(0, 3).map((relatedTile, relatedIndex) => (
-                  <button
-                    key={relatedIndex}
-                    onClick={() => setSelectedTileIndex(tileData.findIndex(t => t === relatedTile))}
-                    style={{
-                      padding: '16px 12px',
-                      backgroundColor: '#f8f9fa',
-                      border: '1px solid #e9ecef',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      textAlign: 'center',
-                      fontSize: '14px',
-                      transition: 'background-color 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = '#e9ecef'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = '#f8f9fa'}
-                  >
-                    {relatedTile[0]}
-                  </button>
-                ))}
               </div>
             </div>
           </div>
         </FullPageSlideUp>
-      ))}
 
-      {/* Full Page Slide-ups */}
-      <FullPageSlideUp
-        isVisible={currentPage === 'products'}
-        onClose={closePage}
-        title="Products"
-      >
-        <div style={{ padding: '20px' }}>
-          <h2>Our Products</h2>
-          <p>This is the full products page with its own toolbar.</p>
-          <p>Add your product listings, categories, and details here.</p>
+        <FullPageSlideUp
+          isVisible={currentPage === 'services'}
+          onClose={closePage}
+          title="Services"
+        >
+          <SalesEnquiryForm />
+        </FullPageSlideUp>
 
-          {/* Example content */}
-          <div style={{ marginTop: '24px' }}>
-            <h3>Product Categories</h3>
-            <div style={{ display: 'grid', gap: '16px', marginTop: '16px' }}>
-              <div style={{
-                padding: '16px',
-                border: '1px solid #e0e0e0',
-                borderRadius: '8px',
-                backgroundColor: '#f5f5f5'
-              }}>
-                Category 1
+        <FullPageSlideUp
+          isVisible={currentPage === 'contact'}
+          onClose={closePage}
+          title="Contact Us"
+        >
+          <div style={{ padding: '20px' }}>
+            <h2>Get In Touch</h2>
+            <p>This is the full contact page with its own toolbar.</p>
+
+            {/* Example contact form */}
+            <div style={{ marginTop: '24px' }}>
+              <h3>Contact Information</h3>
+              <div style={{ marginTop: '16px', lineHeight: '1.6' }}>
+                <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+                <p><strong>Email:</strong> info@company.com</p>
+                <p><strong>Address:</strong> 123 Business St, City, State 12345</p>
               </div>
-              <div style={{
-                padding: '16px',
-                border: '1px solid #e0e0e0',
-                borderRadius: '8px',
-                backgroundColor: '#f5f5f5'
-              }}>
-                Category 2
-              </div>
-              <div style={{
-                padding: '16px',
-                border: '1px solid #e0e0e0',
-                borderRadius: '8px',
-                backgroundColor: '#f5f5f5'
-              }}>
-                Category 3
-              </div>
-            </div>
-          </div>
-        </div>
-      </FullPageSlideUp>
 
-      <FullPageSlideUp
-        isVisible={currentPage === 'services'}
-        onClose={closePage}
-        title="Services"
-      >
-        <SalesEnquiryForm />
-      </FullPageSlideUp>
-
-      <FullPageSlideUp
-        isVisible={currentPage === 'contact'}
-        onClose={closePage}
-        title="Contact Us"
-      >
-        <div style={{ padding: '20px' }}>
-          <h2>Get In Touch</h2>
-          <p>This is the full contact page with its own toolbar.</p>
-
-          {/* Example contact form */}
-          <div style={{ marginTop: '24px' }}>
-            <h3>Contact Information</h3>
-            <div style={{ marginTop: '16px', lineHeight: '1.6' }}>
-              <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-              <p><strong>Email:</strong> info@company.com</p>
-              <p><strong>Address:</strong> 123 Business St, City, State 12345</p>
-            </div>
-
-            <h3 style={{ marginTop: '32px' }}>Send us a message</h3>
-            <div style={{ marginTop: '16px' }}>
-              <input
-                type="text"
-                placeholder="Your Name"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  marginBottom: '16px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  marginBottom: '16px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '16px'
-                }}
-              />
-              <textarea
-                placeholder="Your Message"
-                rows="4"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  marginBottom: '16px',
-                  border: '1px solid #ddd',
+              <h3 style={{ marginTop: '32px' }}>Send us a message</h3>
+              <div style={{ marginTop: '16px' }}>
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    marginBottom: '16px',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px',
+                    fontSize: '16px'
+                  }}
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    marginBottom: '16px',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px',
+                    fontSize: '16px'
+                  }}
+                />
+                <textarea
+                  placeholder="Your Message"
+                  rows="4"
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    marginBottom: '16px',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px',
+                    fontSize: '16px',
+                    resize: 'vertical'
+                  }}
+                />
+                <button style={{
+                  backgroundColor: 'rgb(61, 61, 61)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
                   borderRadius: '4px',
                   fontSize: '16px',
-                  resize: 'vertical'
-                }}
-              />
-              <button style={{
-                backgroundColor: 'rgb(61, 61, 61)',
-                color: 'white',
-                border: 'none',
-                padding: '12px 24px',
-                borderRadius: '4px',
-                fontSize: '16px',
-                cursor: 'pointer'
-              }}>
-                Send Message
-              </button>
-            </div>
-          </div>
-        </div>
-      </FullPageSlideUp>
-
-
-<FullPageSlideUp
-        isVisible={currentPage === 'about'}
-        onClose={closePage}
-        title="My Quotes"
-      >
-        <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', color: '#333' }}>Welcome Back</h2>
-            <p style={{ margin: 0, color: '#666', fontSize: '16px' }}>
-              Sign in to access your quotes
-            </p>
-          </div>
-
-          {/* Login Form */}
-          <div style={{ marginBottom: '32px' }}>
-            {/* Email Input */}
-            <div style={{ marginBottom: '24px' }}>
-              <label style={{
-                display: 'block',
-                marginBottom: '8px',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#333'
-              }}>
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                style={{
-                  width: '100%',
-                  padding: '16px',
-                  border: '2px solid #e0e0e0',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  transition: 'border-color 0.2s ease',
-                  outline: 'none'
-                }}
-                onFocus={(e) => e.target.style.borderColor = 'rgb(61, 61, 61)'}
-                onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
-              />
-            </div>
-
-            {/* PIN Code Input */}
-            <div style={{ marginBottom: '32px' }}>
-              <label style={{
-                display: 'block',
-                marginBottom: '8px',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#333'
-              }}>
-                PIN Code
-              </label>
-              <div style={{
-                display: 'flex',
-                gap: '12px',
-                justifyContent: 'center',
-                marginBottom: '8px'
-              }}>
-                {[0, 1, 2, 3].map((index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    maxLength="1"
-                    style={{
-                      width: '60px',
-                      height: '60px',
-                      textAlign: 'center',
-                      fontSize: '24px',
-                      fontWeight: 'bold',
-                      border: '2px solid #e0e0e0',
-                      borderRadius: '8px',
-                      outline: 'none',
-                      transition: 'border-color 0.2s ease'
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = 'rgb(61, 61, 61)';
-                      e.target.select();
-                    }}
-                    onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
-                    onInput={(e) => {
-                      // Only allow numbers
-                      e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                      
-                      // Auto-focus next input
-                      if (e.target.value && index < 3) {
-                        const nextInput = e.target.parentNode.children[index + 1];
-                        if (nextInput) nextInput.focus();
-                      }
-                    }}
-                    onKeyDown={(e) => {
-                      // Handle backspace to go to previous input
-                      if (e.key === 'Backspace' && !e.target.value && index > 0) {
-                        const prevInput = e.target.parentNode.children[index - 1];
-                        if (prevInput) {
-                          prevInput.focus();
-                          prevInput.select();
-                        }
-                      }
-                    }}
-                  />
-                ))}
+                  cursor: 'pointer'
+                }}>
+                  Send Message
+                </button>
               </div>
-              <p style={{
-                margin: 0,
-                fontSize: '12px',
-                color: '#666',
-                textAlign: 'center'
-              }}>
-                Enter your 4-digit PIN
+            </div>
+          </div>
+        </FullPageSlideUp>
+
+
+        <FullPageSlideUp
+          isVisible={currentPage === 'about'}
+          onClose={closePage}
+          title="My Quotes"
+        >
+          <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <h2 style={{ margin: '0 0 8px 0', fontSize: '28px', color: '#333' }}>Welcome Back</h2>
+              <p style={{ margin: 0, color: '#666', fontSize: '16px' }}>
+                Sign in to access your quotes
               </p>
             </div>
 
-            {/* Login Button */}
-            <button style={{
-              width: '100%',
-              backgroundColor: 'rgb(61, 61, 61)',
-              color: 'white',
-              border: 'none',
-              padding: '16px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s ease',
-              marginBottom: '16px'
-            }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgb(45, 45, 45)'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'rgb(61, 61, 61)'}
-            onClick={() => {
-              // Add your login logic here
-              console.log('Login attempted');
-            }}
-            >
-              Sign In
-            </button>
+            {/* Login Form */}
+            <div style={{ marginBottom: '32px' }}>
+              {/* Email Input */}
+              <div style={{ marginBottom: '24px' }}>
+                <label style={{
+                  display: 'block',
+                  marginBottom: '8px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#333'
+                }}>
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  style={{
+                    width: '100%',
+                    padding: '16px',
+                    border: '2px solid #e0e0e0',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    transition: 'border-color 0.2s ease',
+                    outline: 'none'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = 'rgb(61, 61, 61)'}
+                  onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                />
+              </div>
 
-            {/* Forgot PIN Link */}
-            <div style={{ textAlign: 'center' }}>
+              {/* PIN Code Input */}
+              <div style={{ marginBottom: '32px' }}>
+                <label style={{
+                  display: 'block',
+                  marginBottom: '8px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#333'
+                }}>
+                  PIN Code
+                </label>
+                <div style={{
+                  display: 'flex',
+                  gap: '12px',
+                  justifyContent: 'center',
+                  marginBottom: '8px'
+                }}>
+                  {[0, 1, 2, 3].map((index) => (
+                    <input
+                      key={index}
+                      type="text"
+                      maxLength="1"
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        textAlign: 'center',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        border: '2px solid #e0e0e0',
+                        borderRadius: '8px',
+                        outline: 'none',
+                        transition: 'border-color 0.2s ease'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'rgb(61, 61, 61)';
+                        e.target.select();
+                      }}
+                      onBlur={(e) => e.target.style.borderColor = '#e0e0e0'}
+                      onInput={(e) => {
+                        // Only allow numbers
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+                        // Auto-focus next input
+                        if (e.target.value && index < 3) {
+                          const nextInput = e.target.parentNode.children[index + 1];
+                          if (nextInput) nextInput.focus();
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        // Handle backspace to go to previous input
+                        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                          const prevInput = e.target.parentNode.children[index - 1];
+                          if (prevInput) {
+                            prevInput.focus();
+                            prevInput.select();
+                          }
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+                <p style={{
+                  margin: 0,
+                  fontSize: '12px',
+                  color: '#666',
+                  textAlign: 'center'
+                }}>
+                  Enter your 4-digit PIN
+                </p>
+              </div>
+
+              {/* Login Button */}
               <button style={{
-                background: 'none',
+                width: '100%',
+                backgroundColor: 'rgb(61, 61, 61)',
+                color: 'white',
                 border: 'none',
+                padding: '16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s ease',
+                marginBottom: '16px'
+              }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = 'rgb(45, 45, 45)'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'rgb(61, 61, 61)'}
+                onClick={() => {
+                  // Add your login logic here
+                  console.log('Login attempted');
+                }}
+              >
+                Sign In
+              </button>
+
+              {/* Forgot PIN Link */}
+              <div style={{ textAlign: 'center' }}>
+                <button style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'rgb(61, 61, 61)',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  textDecoration: 'underline'
+                }}
+                  onClick={() => {
+                    // Add forgot PIN logic here
+                    console.log('Forgot PIN clicked');
+                  }}
+                >
+                  Forgot your PIN?
+                </button>
+              </div>
+            </div>
+
+            {/* Alternative Login Options */}
+            <div style={{
+              borderTop: '1px solid #e0e0e0',
+              paddingTop: '24px',
+              textAlign: 'center'
+            }}>
+              {/* <p style={{
+                margin: '0 0 16px 0',
+                fontSize: '14px',
+                color: '#666'
+              }}>
+                Need help accessing your account?
+              </p> */}
+              {/* <button style={{
+                backgroundColor: '#f8f9fa',
                 color: 'rgb(61, 61, 61)',
+                border: '2px solid #e0e0e0',
+                padding: '12px 24px',
+                borderRadius: '8px',
                 fontSize: '14px',
                 cursor: 'pointer',
-                textDecoration: 'underline'
+                transition: 'background-color 0.2s ease'
               }}
-              onClick={() => {
-                // Add forgot PIN logic here
-                console.log('Forgot PIN clicked');
-              }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#e9ecef'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                onClick={() => {
+                  // Add contact support logic here
+                  console.log('Contact support clicked');
+                }}
               >
-                Forgot your PIN?
-              </button>
+                📞 Contact Support
+              </button> */}
             </div>
-          </div>
 
-          {/* Alternative Login Options */}
-          <div style={{
-            borderTop: '1px solid #e0e0e0',
-            paddingTop: '24px',
-            textAlign: 'center'
-          }}>
-            <p style={{
-              margin: '0 0 16px 0',
-              fontSize: '14px',
-              color: '#666'
-            }}>
-              Need help accessing your account?
-            </p>
-            <button style={{
-              backgroundColor: '#f8f9fa',
-              color: 'rgb(61, 61, 61)',
-              border: '2px solid #e0e0e0',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s ease'
-            }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#e9ecef'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#f8f9fa'}
-            onClick={() => {
-              // Add contact support logic here
-              console.log('Contact support clicked');
-            }}
-            >
-              📞 Contact Support
-            </button>
+            
           </div>
-
-          {/* Security Note */}
-          <div style={{
-            marginTop: '32px',
-            padding: '16px',
-            backgroundColor: '#f8f9fa',
-            borderRadius: '8px',
-            border: '1px solid #e9ecef'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '8px'
-            }}>
-              <span style={{ fontSize: '16px' }}>🔒</span>
-              <span style={{ fontSize: '14px', fontWeight: '500', color: '#333' }}>
-                Secure Login
-              </span>
-            </div>
-            <p style={{
-              margin: 0,
-              fontSize: '12px',
-              color: '#666',
-              lineHeight: '1.4'
-            }}>
-              Your data is protected with industry-standard encryption. 
-              Never share your PIN with anyone.
-            </p>
-          </div>
-        </div>
-      </FullPageSlideUp>
-    </div>
-  );
+        </FullPageSlideUp>
+      </div>
+      );
 }
 
-export default App;
+      export default App;

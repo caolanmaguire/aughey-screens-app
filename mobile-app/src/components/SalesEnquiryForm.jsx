@@ -180,13 +180,13 @@ const SalesEnquiryForm = () => {
     display: 'block',
     marginBottom: '4px',
     fontWeight: '500',
-    color: '#333'
+    color: '#3d3d3d'
   };
 
   const cardStyle = {
     backgroundColor: 'white',
     borderRadius: '8px',
-    padding: '20px',
+    // padding: '20px',
     margin: '16px',
     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
   };
@@ -225,7 +225,7 @@ const SalesEnquiryForm = () => {
               onClick={() => qrInputRef.current?.click()}
               style={{
                 ...inputStyle,
-                backgroundColor: '#6200ea',
+                backgroundColor: '#3d3d3d',
                 color: 'white',
                 border: 'none',
                 cursor: 'pointer'
@@ -246,7 +246,7 @@ const SalesEnquiryForm = () => {
           )}
         </div>
 
-        <h2 style={{ color: '#6200ea', marginBottom: '20px' }}>Send us a quote</h2>
+        <h2 style={{ color: '#3d3d3d', marginBottom: '20px' }}>Send us a quote</h2>
 
         {/* Email */}
         <div style={sectionStyle}>
@@ -372,7 +372,7 @@ const SalesEnquiryForm = () => {
 
             {/* Dimensions */}
             <div style={{ marginBottom: '16px' }}>
-              <h3 style={{ color: '#6200ea', marginBottom: '12px' }}>Dimensions</h3>
+              <h3 style={{ color: '#3d3d3d', marginBottom: '12px' }}>Dimensions</h3>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <input
                   type="number"
@@ -428,7 +428,7 @@ const SalesEnquiryForm = () => {
 
             {/* Hook Types */}
             <div style={{ marginBottom: '16px' }}>
-              <h3 style={{ color: '#6200ea', marginBottom: '12px' }}>Hook Type</h3>
+              <h3 style={{ color: '#3d3d3d', marginBottom: '12px' }}>Hook Type</h3>
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}>
                   <strong>ST</strong>
@@ -494,7 +494,7 @@ const SalesEnquiryForm = () => {
 
         {/* Delivery Information */}
         <div style={sectionStyle}>
-          <h3 style={{ color: '#6200ea', marginBottom: '16px' }}>Delivery Information</h3>
+          <h3 style={{ color: '#3d3d3d', marginBottom: '16px' }}>Delivery Information</h3>
           
           <div style={{ marginBottom: '16px' }}>
             <label style={labelStyle} htmlFor="name">Name:</label>
@@ -587,7 +587,7 @@ const SalesEnquiryForm = () => {
           style={{
             width: '100%',
             padding: '16px',
-            backgroundColor: '#6200ea',
+            backgroundColor: '#3d3d3d',
             color: 'white',
             border: 'none',
             borderRadius: '4px',

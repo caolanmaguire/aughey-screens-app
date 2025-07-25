@@ -48,6 +48,7 @@ select {
 }
 
 #tile {
+    font-size: 15px;
     font-variant-caps: all-petite-caps;
     width: 95%;
     height: 150px;
