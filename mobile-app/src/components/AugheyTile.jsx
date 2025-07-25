@@ -15,7 +15,8 @@ const TileButton = ({ title = 'woven wire cloth and filtration', onClick }) => {
 
   const imageStyle = {
     width: '60px',
-    height: 'auto'
+    height: 'auto',
+    borderRadius: '50%'
   };
 
   const iconStyle = {

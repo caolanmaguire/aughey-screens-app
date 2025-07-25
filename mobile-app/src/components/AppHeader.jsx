@@ -2,9 +2,11 @@
 import React from 'react';
 import { Toolbar, Icon } from 'react-onsenui';
 
+import logo from '../images/aughey-screens-logo.png'; // Adjust the path as necessary
+
 const AppHeader = ({ onMenuClick }) => {
   return (
-    <Toolbar modifier="material">
+    <Toolbar style={{'height':'66px'}} modifier="material">
       <div className="left">
         <div style={{
           display: 'flex',
@@ -12,7 +14,8 @@ const AppHeader = ({ onMenuClick }) => {
           gap: '12px',
           paddingLeft: '16px'
         }}>
-          <div style={{
+          <img style={{'height' : '40px', 'margin':'10px'}} src={logo}/>
+          {/* <div style={{
             width: '32px',
             height: '32px',
             backgroundColor: 'white',
@@ -32,7 +35,7 @@ const AppHeader = ({ onMenuClick }) => {
             color: 'white'
           }}>
             Aughey
-          </span>
+          </span> */}
         </div>
       </div>
       

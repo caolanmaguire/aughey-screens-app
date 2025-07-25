@@ -24,7 +24,8 @@ const tileData = [
   ['Mosaic Designs', 'Stunning mosaic tiles that add artistic flair to your walls and floors. Perfect for accent walls, backsplashes, and creating unique design features.'],
   ['Porcelain Pro Series', 'Professional-grade porcelain tiles designed for high-traffic areas. Slip-resistant and easy to maintain, ideal for commercial and residential use.'],
   ['Wood Effect Tiles', 'Get the look of hardwood with the durability of ceramic. Perfect for any room in your home, combining warmth with practicality.'],
-  ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.']
+  ['Luxury Marble Style', 'Marble-effect tiles that bring elegance and sophistication to your space at an affordable price. Create a luxurious atmosphere without the maintenance.'],
+  ['Caolán Maguire', 'Caolan Maguire is cool']
 
 
 
@@ -141,19 +142,19 @@ const RightSlideMenu = ({ isOpen, onClose }) => {
             }}>
               👤
             </div>
-            <div>
+            {/* <div>
               <div style={{ fontSize: '16px', fontWeight: '500', marginBottom: '4px' }}>
                 Welcome User
               </div>
               <div style={{ fontSize: '14px', color: '#666' }}>
                 user@example.com
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Menu Items */}
-        <div style={{
+        {/* <div style={{
           flex: 1,
           overflow: 'auto',
           padding: '8px 0'
@@ -188,7 +189,7 @@ const RightSlideMenu = ({ isOpen, onClose }) => {
               <span>{item.label}</span>
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Menu Footer (Optional) */}
         <div style={{
@@ -196,7 +197,7 @@ const RightSlideMenu = ({ isOpen, onClose }) => {
           borderTop: '1px solid #e0e0e0',
           backgroundColor: '#f8f8f8'
         }}>
-          <button style={{
+          <button disabled style={{
             width: '100%',
             padding: '12px',
             backgroundColor: 'rgb(61, 61, 61)',
@@ -487,22 +488,6 @@ function App() {
 
           <input type='submit' value='Get Value' onClick={() => alert(localStorage.getItem('name'))} /> */}
 
-          {/* Temporary burger menu button for testing (remove when AppHeader is updated) */}
-          <button
-            onClick={openMenu}
-            style={{
-              background: 'rgb(61, 61, 61)',
-              color: 'white',
-              border: 'none',
-              padding: '12px',
-              borderRadius: '4px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              margin: '16px 0'
-            }}
-          >
-            Open Menu (Test)
-          </button>
 
           {/* Generate TileButton for each item in the list */}
           <div style={{

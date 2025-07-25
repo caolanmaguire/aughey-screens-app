@@ -34,8 +34,8 @@ const SalesEnquiryComponent = ({ onSalesEnquiry }) => {
   };
 
   const buttonStyle = {
-    background: '#c3d600',
-    color: '#212121',
+    background: '#036436',
+    color: 'white',
     display: 'inline-block',
     padding: '15px 30px',
     borderRadius: '10px',

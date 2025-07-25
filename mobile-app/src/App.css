@@ -65,3 +65,7 @@ ons-toolbar:not([inline]), ons-bottom-toolbar{
 .toolbar{
   position: unset!important;
 }
+
+.unicode-icon {
+  border-radius: 50%!important;
+}

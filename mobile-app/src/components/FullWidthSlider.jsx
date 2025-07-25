@@ -146,10 +146,11 @@ const FullWidthSlider = ({
     <div style={{
       position: 'relative',
       width: '100vw',
-      height: height,
+      height: '185px',
       marginLeft: 'calc(-50vw + 50%)', // This makes it full width even inside containers
       overflow: 'hidden',
-      background: '#000'
+      background: '#000',
+      marginTop: '29px',
     }}>
       {/* Slides Container */}
       <div

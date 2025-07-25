@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aughey Screens Sales App</string>
+    <string name="title_activity_main">Aughey Screens Sales App</string>
+    <string name="package_name">com.augheyapp.app</string>
+    <string name="custom_url_scheme">com.augheyapp.app</string>
+</resources>
