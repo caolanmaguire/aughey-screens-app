@@ -15,10 +15,12 @@ const SalesEnquiryComponent = ({ onSalesEnquiry }) => {
   };
 
   const containerStyle = {
-    background: '#3d3d3d',
+    background: 'linear-gradient(to bottom,#3d3d3d 0%,#2a2a2a 50%,#171717 100%)',
     borderRadius: '10px',
     marginTop: '10px',
     margin: '5%',
+    marginBottom: '1%',
+    marginTop: '1%',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     alignItems: 'center',
@@ -29,8 +31,8 @@ const SalesEnquiryComponent = ({ onSalesEnquiry }) => {
     fontSize: '36px',
     color: 'white',
     textAlign: 'center',
-    marginBottom: '0',
-    margin: '0'
+    // marginBottom: '0',
+    margin: '2%'
   };
 
   const buttonStyle = {

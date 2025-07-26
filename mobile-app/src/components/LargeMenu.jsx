@@ -101,7 +101,7 @@ export default function LargeMenu({ tileData = [], onMenuClick }) {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            backgroundColor: activeItem === item.id ? '#10b981' : '#3d3d3d',
+            background: 'linear-gradient(rgb(61, 61, 61) 0%, rgb(42, 42, 42) 50%, rgb(23, 23, 23) 100%)',
             color: activeItem === item.id ? 'white' : 'white',
             transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
             border: 'none'

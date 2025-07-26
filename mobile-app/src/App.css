@@ -18,7 +18,14 @@ ons-toolbar:not([inline]), ons-bottom-toolbar{
 }
 
 .App-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(
+    to bottom,
+    #3d3d3d 0%,
+    #2a2a2a 50%,
+    #171717 100%
+  );
+  border-bottom: 1px solid #0f0f0f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
